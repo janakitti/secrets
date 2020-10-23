@@ -36,5 +36,13 @@ public class StepController : MonoBehaviour
     public void SetNextLocation(Vector3 location)
     {
         nextLocation = location;
+        foreach(MovableController obj in FindObjectsOfType<MovableController>())
+        {
+            if (obj.transform.position == nextLocation)
+            {
+                Vector3 dir = (nextLocation - gameObject.transform.position) + obj.transform.position;
+                obj.Push(dir);
+            }
+        }
     }
 }
