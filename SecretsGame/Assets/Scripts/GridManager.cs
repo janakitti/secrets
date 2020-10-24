@@ -39,7 +39,7 @@ public class GridManager : MonoBehaviour
 
         }
         gridTable.Add(player.transform.position, playerObject);
-
+        gridTable.Add(secret.transform.position, secretObject);
 
 
         Debug.Log("LIST: " + movableList);
@@ -66,7 +66,6 @@ public class GridManager : MonoBehaviour
                 nextPos.x -= 1f;
                 PushRecurse(playerObject, nextPos);
                 ExecStep();
-                PrintDebug();
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
@@ -74,7 +73,6 @@ public class GridManager : MonoBehaviour
                 nextPos.z += 1f;
                 PushRecurse(playerObject, nextPos);
                 ExecStep();
-                PrintDebug();
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
@@ -82,10 +80,18 @@ public class GridManager : MonoBehaviour
                 nextPos.z -= 1f;
                 PushRecurse(playerObject, nextPos);
                 ExecStep();
-                PrintDebug();
             }
         }
 
+        CheckState();
+    }
+
+    private void CheckState()
+    {
+        if (!isWithinBoundary(secretObject.GetPos()))
+        {
+            Debug.Log("YOU WIN!!");
+        }
     }
 
     private void PrintDebug()
@@ -95,6 +101,7 @@ public class GridManager : MonoBehaviour
         {
             Debug.Log("B: " + gridObj.Value.GetPos());
         }
+        Debug.Log(l / 2 + 1);
         Debug.Log("====");
     }
 
@@ -114,13 +121,29 @@ public class GridManager : MonoBehaviour
             }
         } else
         {
-            if (Math.Abs(nextPos.x) > l/2 || Math.Abs(nextPos.z) > w/2)
+            if (isOnBoundary(nextPos) && (curObj.GetMovable() is SecretController))
+            {
+                curObj.SetStep(nextPos);
+                return true;
+            } else if (!isWithinBoundary(nextPos))
             {
                 return false;
+            } else
+            {
+                curObj.SetStep(nextPos);
+                return true;
             }
-            curObj.SetStep(nextPos);
-            return true;
         }
+    }
+
+    private bool isWithinBoundary(Vector3 pos)
+    {
+        return Math.Abs(pos.x) <= l / 2 && Math.Abs(pos.z) <= w / 2;
+    }
+
+    private bool isOnBoundary(Vector3 pos)
+    {
+        return Math.Abs(pos.x) == ((l / 2) + 1) || Math.Abs(pos.z) == ((w / 2) + 1);
     }
 
     private void Step(GridObject obj2)
