@@ -8,10 +8,12 @@ public class GridManager : MonoBehaviour
     public GridObject playerObject;
     private List<GridObject> movableList;
     public static Dictionary<Vector3, GridObject> gridTable;
+    private List<StepController> steppingList;
 
     void Start()
     {
         movableList = new List<GridObject>();
+        steppingList = new List<StepController>();
 
         gridTable = new Dictionary<Vector3, GridObject>();
 
@@ -28,7 +30,8 @@ public class GridManager : MonoBehaviour
 
         }
         gridTable.Add(player.transform.position, playerObject);
-       
+
+
 
         Debug.Log("LIST: " + movableList);
         PrintDebug();
@@ -37,39 +40,43 @@ public class GridManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if(steppingList.Count == 0)
         {
-            
-            Vector3 nextPos = player.transform.position;
-            nextPos.x += 1f;
-            PushRecurse(playerObject, nextPos);
-            ExecStep();
-            PrintDebug();
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+
+                Vector3 nextPos = player.transform.position;
+                nextPos.x += 1f;
+                PushRecurse(playerObject, nextPos);
+                ExecStep();
+                PrintDebug();
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                Vector3 nextPos = player.transform.position;
+                nextPos.x -= 1f;
+                PushRecurse(playerObject, nextPos);
+                ExecStep();
+                PrintDebug();
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                Vector3 nextPos = player.transform.position;
+                nextPos.z += 1f;
+                PushRecurse(playerObject, nextPos);
+                ExecStep();
+                PrintDebug();
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Vector3 nextPos = player.transform.position;
+                nextPos.z -= 1f;
+                PushRecurse(playerObject, nextPos);
+                ExecStep();
+                PrintDebug();
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            Vector3 nextPos = player.transform.position;
-            nextPos.x -= 1f;
-            PushRecurse(playerObject, nextPos);
-            ExecStep();
-            PrintDebug();
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            Vector3 nextPos = player.transform.position;
-            nextPos.z += 1f;
-            PushRecurse(playerObject, nextPos);
-            ExecStep();
-            PrintDebug();
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            Vector3 nextPos = player.transform.position;
-            nextPos.z -= 1f;
-            PushRecurse(playerObject, nextPos);
-            ExecStep();
-            PrintDebug();
-        }
+
     }
 
     private void PrintDebug()
@@ -120,7 +127,16 @@ public class GridManager : MonoBehaviour
     {
         foreach (KeyValuePair<Vector3, GridObject> gridObj in gridTable)
         {
+            steppingList.Add(gridObj.Value.GetStepController());
             gridObj.Value.ExecNorth();
+        }
+    }
+
+    public void RemoveFromSteppingList(StepController completedStep)
+    {
+        if (steppingList.Contains(completedStep))
+        {
+            steppingList.Remove(completedStep);
         }
     }
 }
@@ -158,5 +174,10 @@ public class GridObject
     public Vector3 GetPos()
     {
         return pos;
+    }
+
+    public StepController GetStepController()
+    {
+        return movable.stepController;
     }
 }

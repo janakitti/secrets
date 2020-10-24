@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   isDoneMoving: 0
+  gridManager: {fileID: 742923839}
 --- !u!1 &290789547
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   isDoneMoving: 0
+  gridManager: {fileID: 742923839}
 --- !u!114 &721328154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,6 +791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   isDoneMoving: 0
+  gridManager: {fileID: 742923839}
 --- !u!114 &2098002789
 MonoBehaviour:
   m_ObjectHideFlags: 0

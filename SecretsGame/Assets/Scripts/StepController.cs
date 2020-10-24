@@ -6,6 +6,7 @@ public class StepController : MonoBehaviour
 {
     public float speed = 4f;
     public bool isDoneMoving;
+    public GridManager gridManager;
 
     private Vector3 nextLocation;
 
@@ -25,6 +26,7 @@ public class StepController : MonoBehaviour
         } else
         {
             isDoneMoving = true;
+            gridManager.RemoveFromSteppingList(this);
         }
     }
 
