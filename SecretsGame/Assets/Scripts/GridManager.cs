@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+
+    public int l;
+    public int w;
     public PlayerContoller player;
     public GridObject playerObject;
+    public SecretController secret;
+    public GridObject secretObject;
     private List<GridObject> movableList;
     public static Dictionary<Vector3, GridObject> gridTable;
     private List<StepController> steppingList;
@@ -22,6 +28,9 @@ public class GridManager : MonoBehaviour
             if (obj is PlayerContoller)
             {
                 playerObject = new GridObject(player, player.transform.position);
+            } else if (obj is SecretController)
+            {
+                secretObject = new GridObject(secret, secret.transform.position);
             } else
             {
                 movableList.Add(new GridObject(obj, obj.transform.position));
@@ -91,26 +100,26 @@ public class GridManager : MonoBehaviour
 
     private bool PushRecurse(GridObject curObj, Vector3 nextPos)
     {
-        if (GridManager.gridTable.ContainsKey(nextPos))
+        if (gridTable.ContainsKey(nextPos))
         {
             Vector3 nextNextPos = nextPos - curObj.GetPos() + nextPos;
-            //nextNextPos.x += 1f;
             if (PushRecurse(GridManager.gridTable[nextPos], nextNextPos))
             {
                 curObj.SetStep(nextPos);
-
                 return true;
-            } else
+            }
+            else
             {
-                curObj.SetStep(nextPos);
-
                 return false;
             }
         } else
         {
+            if (Math.Abs(nextPos.x) > l/2 || Math.Abs(nextPos.z) > w/2)
+            {
+                return false;
+            }
             curObj.SetStep(nextPos);
-
-            return false;
+            return true;
         }
     }
 
@@ -179,5 +188,9 @@ public class GridObject
     public StepController GetStepController()
     {
         return movable.stepController;
+    }
+    public MovableController GetMovable()
+    {
+        return movable;
     }
 }
