@@ -48,15 +48,27 @@ public class GridManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-  
+            Vector3 nextPos = player.transform.position;
+            nextPos.x -= 1f;
+            PushRecurse(playerObject, nextPos);
+            ExecStep();
+            PrintDebug();
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-       
+            Vector3 nextPos = player.transform.position;
+            nextPos.z += 1f;
+            PushRecurse(playerObject, nextPos);
+            ExecStep();
+            PrintDebug();
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            
+            Vector3 nextPos = player.transform.position;
+            nextPos.z -= 1f;
+            PushRecurse(playerObject, nextPos);
+            ExecStep();
+            PrintDebug();
         }
     }
 
@@ -74,22 +86,22 @@ public class GridManager : MonoBehaviour
     {
         if (GridManager.gridTable.ContainsKey(nextPos))
         {
-            Vector3 nextNextPos = nextPos;
-            nextNextPos.x += 1f;
+            Vector3 nextNextPos = nextPos - curObj.GetPos() + nextPos;
+            //nextNextPos.x += 1f;
             if (PushRecurse(GridManager.gridTable[nextPos], nextNextPos))
             {
-                Step(curObj);
+                curObj.SetStep(nextPos);
 
                 return true;
             } else
             {
-                Step(curObj);
+                curObj.SetStep(nextPos);
 
                 return false;
             }
         } else
         {
-            Step(curObj);
+            curObj.SetStep(nextPos);
 
             return false;
         }
@@ -130,6 +142,13 @@ public class GridObject
         pos.x += 1f;
         GridManager.gridTable.Add(pos, obj);
         
+    }
+    public void SetStep(Vector3 nextStep)
+    {
+        GridObject obj = GridManager.gridTable[pos];
+        GridManager.gridTable.Remove(pos);
+        pos = nextStep;
+        GridManager.gridTable.Add(pos, obj);
     }
     public void ExecNorth()
     {
