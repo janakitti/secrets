@@ -4,28 +4,47 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-
+    public PlayerContoller player;
+    public GridObject playerObject;
     private List<GridObject> movableList;
+    public static Dictionary<Vector3, GridObject> gridTable;
 
     void Start()
     {
         movableList = new List<GridObject>();
+
+        gridTable = new Dictionary<Vector3, GridObject>();
+
         foreach (MovableController obj in FindObjectsOfType<MovableController>())
         {
-            movableList.Add(new GridObject(obj, obj.transform.position));
+            if (obj is PlayerContoller)
+            {
+                playerObject = new GridObject(player, player.transform.position);
+            } else
+            {
+                movableList.Add(new GridObject(obj, obj.transform.position));
+                gridTable.Add(obj.transform.position, new GridObject(obj, obj.transform.position));
+            }
+
         }
+        gridTable.Add(player.transform.position, playerObject);
+       
 
         Debug.Log("LIST: " + movableList);
-          
+        PrintDebug();
+
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Step();
+            
+            Vector3 nextPos = player.transform.position;
+            nextPos.x += 1f;
+            PushRecurse(playerObject, nextPos);
             ExecStep();
-      
+            PrintDebug();
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -41,19 +60,55 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void Step()
+    private void PrintDebug()
     {
-        foreach (GridObject obj in movableList)
+        Debug.Log("P: " + playerObject.GetPos());
+        foreach (KeyValuePair<Vector3, GridObject> gridObj in gridTable)
         {
-            obj.StepNorth();
+            Debug.Log("B: " + gridObj.Value.GetPos());
         }
+        Debug.Log("====");
+    }
+
+    private bool PushRecurse(GridObject curObj, Vector3 nextPos)
+    {
+        if (GridManager.gridTable.ContainsKey(nextPos))
+        {
+            Vector3 nextNextPos = nextPos;
+            nextNextPos.x += 1f;
+            if (PushRecurse(GridManager.gridTable[nextPos], nextNextPos))
+            {
+                Step(curObj);
+
+                return true;
+            } else
+            {
+                Step(curObj);
+
+                return false;
+            }
+        } else
+        {
+            Step(curObj);
+
+            return false;
+        }
+    }
+
+    private void Step(GridObject obj2)
+    {
+        obj2.StepNorth();
+        //foreach (GridObject obj in movableList)
+        //{
+        //    obj.StepNorth();
+        //}
     }
 
     private void ExecStep()
     {
-        foreach (GridObject obj in movableList)
+        foreach (KeyValuePair<Vector3, GridObject> gridObj in gridTable)
         {
-            obj.ExecNorth();
+            gridObj.Value.ExecNorth();
         }
     }
 }
@@ -70,10 +125,19 @@ public class GridObject
     }
     public void StepNorth()
     {
+        GridObject obj = GridManager.gridTable[pos];
+        GridManager.gridTable.Remove(pos);
         pos.x += 1f;
+        GridManager.gridTable.Add(pos, obj);
+        
     }
     public void ExecNorth()
     {
         movable.Push(pos);
+    }
+
+    public Vector3 GetPos()
+    {
+        return pos;
     }
 }

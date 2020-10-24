@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerContoller : MonoBehaviour
+public class PlayerContoller : MovableController
 {
     public Vector3 moveDirection = Vector3.zero;
 
     private Vector3 nextPos;
-    public StepController stepController;
+
     void Start()
     {
         nextPos = transform.position;
