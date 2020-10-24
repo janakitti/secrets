@@ -556,6 +556,8 @@ GameObject:
   - component: {fileID: 2098002786}
   - component: {fileID: 2098002785}
   - component: {fileID: 2098002784}
+  - component: {fileID: 2098002789}
+  - component: {fileID: 2098002788}
   m_Layer: 0
   m_Name: FreeBlock
   m_TagString: Untagged
@@ -637,3 +639,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2098002788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098002783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11be484a5eb19814494982dd0d053153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  isDoneMoving: 0
+--- !u!114 &2098002789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098002783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4e43a0a8dd3704da74a69f7d96ee9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepController: {fileID: 2098002788}
