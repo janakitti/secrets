@@ -15,32 +15,32 @@ public class PlayerContoller : MonoBehaviour
 
     void Update()
     {
-        if (stepController.isDoneMoving)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                stepController.SetNextLocation(transform.TransformPoint(Vector3.forward));
-            } else if (Input.GetKeyDown(KeyCode.S))
-            {
-                stepController.SetNextLocation(transform.TransformPoint(Vector3.back));
-            } else if (Input.GetKeyDown(KeyCode.A))
-            {
-                stepController.SetNextLocation(transform.TransformPoint(Vector3.left));
-            } else if (Input.GetKeyDown(KeyCode.D))
-            {
-                stepController.SetNextLocation(transform.TransformPoint(Vector3.right));
-            }
-        }
+        //if (stepController.isDoneMoving)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.W))
+        //    {
+        //        stepController.SetNextLocation(transform.TransformPoint(Vector3.forward));
+        //    } else if (Input.GetKeyDown(KeyCode.S))
+        //    {
+        //        stepController.SetNextLocation(transform.TransformPoint(Vector3.back));
+        //    } else if (Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        stepController.SetNextLocation(transform.TransformPoint(Vector3.left));
+        //    } else if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        stepController.SetNextLocation(transform.TransformPoint(Vector3.right));
+        //    }
+        //}
 
 
     }
     void Step(string dir)
     {
-        if (dir == "North")
-        {
-            stepController.SetNextLocation(transform.TransformPoint(Vector3.forward));
-            //transform.translate(1f, 0f, 0f);
-        }
+        //if (dir == "North")
+        //{
+        //    stepController.SetNextLocation(transform.TransformPoint(Vector3.forward));
+        //    //transform.translate(1f, 0f, 0f);
+        //}
         
     }
 }
