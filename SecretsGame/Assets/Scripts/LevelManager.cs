@@ -75,4 +75,9 @@ public class LevelManager : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("WallWest").GetComponent<MeshRenderer>().material = normalFloorMaterial;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
