@@ -244,11 +244,20 @@ public class GridManager : MonoBehaviour
                 Vector3 prevPos = (curObj.GetPos() - nextPos) + curObj.GetPos();
                 if (secretObject.GetPos() == prevPos)
                 {
-                    curObj.SetStep(nextPos);
-                    return true;
+                    Debug.Log("A");
+                    if (PushRecurse(gridTable[nextPos], nextNextPos))
+                    {
+                        curObj.SetStep(nextPos);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
+                    Debug.Log("B");
                     return false;
                 }
             }
