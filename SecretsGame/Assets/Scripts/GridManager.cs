@@ -15,6 +15,9 @@ public class GridManager : MonoBehaviour
     public float moveSpeed = 8f;
     public LevelManager levelManager;
 
+    public Material lockedMaterial;
+    public Material unlockedMaterial;
+
     private List<GridObject> movableList;
     public static Dictionary<Vector3, GridObject> gridTable;
     private List<StepController> steppingList;
@@ -104,6 +107,7 @@ public class GridManager : MonoBehaviour
             ActOnState();
             return;
         }
+        BlockUnlocked();
     }
 
     private void ActOnState()
@@ -140,6 +144,31 @@ public class GridManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void BlockUnlocked()
+    {
+        foreach (KeyValuePair<Vector3, GridObject> gridObj in gridTable)
+        {
+            if (gridObj.Value.GetMovable() is LockedController)
+            {
+                Vector3 secretPos = secretObject.GetPos();
+                Vector3 lockedPos = gridObj.Value.GetPos();
+                Vector3 north = lockedPos + new Vector3(1f, 0f, 0f);
+                Vector3 south = lockedPos + new Vector3(-1f, 0f, 0f);
+                Vector3 east = lockedPos + new Vector3(0f, 0f, 1f);
+                Vector3 west = lockedPos + new Vector3(0f, 0f, -1f);
+
+                if (secretPos == north || secretPos == south || secretPos == east || secretPos == west)
+                {
+                    gridObj.Value.GetMovable().GetComponent<MeshRenderer>().material = unlockedMaterial;
+                }
+                else
+                {
+                    gridObj.Value.GetMovable().GetComponent<MeshRenderer>().material = lockedMaterial;
+                }
+            }
+        }
     }
 
     private void PrintDebug()
