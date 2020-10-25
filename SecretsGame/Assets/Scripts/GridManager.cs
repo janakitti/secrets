@@ -88,6 +88,9 @@ public class GridManager : MonoBehaviour
                 PushRecurse(playerObject, nextPos);
                 AdvanceMovers();
                 ExecStep();
+            } else if (Input.GetKeyDown(KeyCode.R))
+            {
+                levelManager.Restart();
             }
         }
 
