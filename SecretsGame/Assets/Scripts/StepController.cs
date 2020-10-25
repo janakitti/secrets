@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StepController : MonoBehaviour
 {
-    public float speed = 4f;
     public bool isDoneMoving;
     public GridManager gridManager;
 
@@ -33,7 +32,7 @@ public class StepController : MonoBehaviour
 
     void SlideStep()
     {
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, nextLocation, speed * Time.deltaTime);
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, nextLocation, gridManager.moveSpeed * Time.deltaTime);
     }
 
     public void SetNextLocation(Vector3 location)

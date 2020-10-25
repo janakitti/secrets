@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
     public GridObject playerObject;
     public SecretController secret;
     public GridObject secretObject;
-
+    public float moveSpeed = 8f;
     public LevelManager levelManager;
 
     private List<GridObject> movableList;
