@@ -12,6 +12,9 @@ public class GridManager : MonoBehaviour
     public GridObject playerObject;
     public SecretController secret;
     public GridObject secretObject;
+
+    public LevelManager levelManager;
+
     private List<GridObject> movableList;
     public static Dictionary<Vector3, GridObject> gridTable;
     private List<StepController> steppingList;
@@ -101,7 +104,7 @@ public class GridManager : MonoBehaviour
     {
         if (state == State.Win)
         {
-            FindObjectOfType<LevelManager>().LevelComplete();
+            levelManager.LevelComplete();
         }
     }
 

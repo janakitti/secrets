@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+
+    public GameObject completeLevelUI;
+
     private bool gameHasEnded = false;
+
     public void LevelComplete()
     {
         if (!gameHasEnded)
         {
             gameHasEnded = true;
-            Debug.Log("COMPLETE");
+            completeLevelUI.SetActive(true);
         }
     }
 
