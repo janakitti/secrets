@@ -15,9 +15,11 @@ public class GridManager : MonoBehaviour
     private List<GridObject> movableList;
     public static Dictionary<Vector3, GridObject> gridTable;
     private List<StepController> steppingList;
-
+    private enum State {Win, Lose, InGame}
+    private State state;
     void Start()
     {
+        state = State.InGame;
         movableList = new List<GridObject>();
         steppingList = new List<StepController>();
 
@@ -90,7 +92,16 @@ public class GridManager : MonoBehaviour
     {
         if (!isWithinBoundary(secretObject.GetPos()))
         {
-            Debug.Log("YOU WIN!!");
+            state = State.Win;
+            ActOnState();
+        }
+    }
+
+    private void ActOnState()
+    {
+        if (state == State.Win)
+        {
+            FindObjectOfType<LevelManager>().LevelComplete();
         }
     }
 
