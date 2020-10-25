@@ -9,6 +9,10 @@ public class LevelManager : MonoBehaviour
     public GameObject completeLevelUI;
     public GameObject failLevelUI;
 
+    public GameObject floor;
+    public Material completeFloorMaterial;
+    public Material failFloorMaterial;
+
     private bool gameHasEnded = false;
 
     public void LevelComplete()
@@ -17,6 +21,7 @@ public class LevelManager : MonoBehaviour
         {
             gameHasEnded = true;
             completeLevelUI.SetActive(true);
+            floor.GetComponent<MeshRenderer>().material = completeFloorMaterial;
         }
     }
 
@@ -26,6 +31,7 @@ public class LevelManager : MonoBehaviour
         {
             gameHasEnded = true;
             failLevelUI.SetActive(true);
+            floor.GetComponent<MeshRenderer>().material = failFloorMaterial;
         }
     }
 
@@ -36,6 +42,12 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
