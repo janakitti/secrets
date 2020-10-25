@@ -46,10 +46,6 @@ public class GridManager : MonoBehaviour
         gridTable.Add(player.transform.position, playerObject);
         gridTable.Add(secret.transform.position, secretObject);
 
-
-        Debug.Log("LIST: " + movableList);
-        PrintDebug();
-
     }
 
     void Update()
@@ -198,10 +194,6 @@ public class GridManager : MonoBehaviour
     private void Step(GridObject obj2)
     {
         obj2.StepNorth();
-        //foreach (GridObject obj in movableList)
-        //{
-        //    obj.StepNorth();
-        //}
     }
 
     private void ExecStep()
