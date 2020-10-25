@@ -236,6 +236,21 @@ public class GridManager : MonoBehaviour
         if (gridTable.ContainsKey(nextPos))
         {
             Vector3 nextNextPos = nextPos - curObj.GetPos() + nextPos;
+            if (curObj.GetMovable() is LockedController)
+            {
+                Vector3 prevPos = (curObj.GetPos() - nextPos) + curObj.GetPos();
+                if (secretObject.GetPos() == prevPos)
+                {
+                    Debug.Log("Y");
+                    curObj.SetStep(nextPos);
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("N");
+                    return false;
+                }
+            }
             if (PushRecurse(gridTable[nextPos], nextNextPos))
             {
                 curObj.SetStep(nextPos);
@@ -258,10 +273,12 @@ public class GridManager : MonoBehaviour
                 Vector3 prevPos = (curObj.GetPos() - nextPos) + curObj.GetPos();
                 if (secretObject.GetPos() == prevPos)
                 {
+                    Debug.Log("Y");
                     curObj.SetStep(nextPos);
                     return true;
                 } else
                 {
+                    Debug.Log("N");
                     return false;
                 }
             } else
