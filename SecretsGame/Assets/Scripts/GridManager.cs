@@ -91,6 +91,9 @@ public class GridManager : MonoBehaviour
             } else if (Input.GetKeyDown(KeyCode.R))
             {
                 levelManager.Restart();
+            } else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                levelManager.LoadLevelSelect();
             }
         }
 
@@ -241,13 +244,11 @@ public class GridManager : MonoBehaviour
                 Vector3 prevPos = (curObj.GetPos() - nextPos) + curObj.GetPos();
                 if (secretObject.GetPos() == prevPos)
                 {
-                    Debug.Log("Y");
                     curObj.SetStep(nextPos);
                     return true;
                 }
                 else
                 {
-                    Debug.Log("N");
                     return false;
                 }
             }
