@@ -116,7 +116,10 @@ public class GridManager : MonoBehaviour
             BlockUnlocked();
         } else
         {
-            if (SecretRevealed(secretObject.GetPos()))
+            if (TutorialEnded(playerObject.GetPos()))
+            {
+                levelManager.LoadLevelSelect();
+            } else if (SecretRevealed(secretObject.GetPos()))
             {
                 levelManager.TutorialWallRed();
             } else
@@ -158,6 +161,31 @@ public class GridManager : MonoBehaviour
         }
         testDirection = secretPos + new Vector3(0f, 0f, -1f);
         if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool TutorialEnded(Vector3 playerPos)
+    {
+        Vector3 testDirection = playerPos + new Vector3(1f, 0f, 0f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is TutorialEnd)
+        {
+            return true;
+        }
+        testDirection = playerPos + new Vector3(-1f, 0f, 0f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is TutorialEnd)
+        {
+            return true;
+        }
+        testDirection = playerPos + new Vector3(0f, 0f, 1f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is TutorialEnd)
+        {
+            return true;
+        }
+        testDirection = playerPos + new Vector3(0f, 0f, -1f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is TutorialEnd)
         {
             return true;
         }
