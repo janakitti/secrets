@@ -135,7 +135,7 @@ public class GridManager : MonoBehaviour
         {
             return true;
         }
-        testDirection = secretPos + new Vector3(1f, 0f, -1f);
+        testDirection = secretPos + new Vector3(0f, 0f, -1f);
         if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
         {
             return true;

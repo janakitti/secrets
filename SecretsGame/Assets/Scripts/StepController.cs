@@ -13,6 +13,7 @@ public class StepController : MonoBehaviour
 
     void Start()
     {
+        gridManager = FindObjectOfType<GridManager>();
         SetNextLocation(gameObject.transform.position);
         isDoneMoving = true;
     }
