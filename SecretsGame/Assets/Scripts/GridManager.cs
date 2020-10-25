@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public bool isTutorial = false;
 
     public int l;
     public int w;
@@ -90,24 +91,41 @@ public class GridManager : MonoBehaviour
             }
         }
 
+ 
         CheckState();
+
+        
     }
 
     private void CheckState()
     {
-        if (!isWithinBoundary(secretObject.GetPos()))
+        if (!isTutorial)
         {
-            state = State.Win;
-            ActOnState();
-            return;
-        }
-        if (SecretRevealed(secretObject.GetPos()))
+            if (!isWithinBoundary(secretObject.GetPos()))
+            {
+                state = State.Win;
+                ActOnState();
+                return;
+            }
+            if (SecretRevealed(secretObject.GetPos()))
+            {
+                state = State.Lose;
+                ActOnState();
+                return;
+            }
+            BlockUnlocked();
+        } else
         {
-            state = State.Lose;
-            ActOnState();
-            return;
+            if (SecretRevealed(secretObject.GetPos()))
+            {
+                levelManager.TutorialWallRed();
+            } else
+            {
+                levelManager.TutorialWallNormal();
+            }
+            BlockUnlocked();
         }
-        BlockUnlocked();
+
     }
 
     private void ActOnState()
@@ -202,7 +220,7 @@ public class GridManager : MonoBehaviour
             {
                 curObj.SetStep(nextPos);
                 return true;
-            } else if (!isWithinBoundary(nextPos))
+            } else if (!isTutorial && !isWithinBoundary(nextPos))
             {
                 return false;
             } else if (curObj.GetMovable() is LockedController) {

@@ -45,3 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completeLevelUI: {fileID: 0}
   failLevelUI: {fileID: 0}
+  floor: {fileID: 0}
+  completeFloorMaterial: {fileID: 0}
+  failFloorMaterial: {fileID: 2100000, guid: 87f8d2f416c119247b16c68a13a9451c, type: 2}
+  normalFloorMaterial: {fileID: 2100000, guid: aea887ea04aef89478051707583435b6, type: 2}

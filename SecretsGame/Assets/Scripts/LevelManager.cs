@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public GameObject floor;
     public Material completeFloorMaterial;
     public Material failFloorMaterial;
+    public Material normalFloorMaterial;
 
     private bool gameHasEnded = false;
 
@@ -58,5 +59,15 @@ public class LevelManager : MonoBehaviour
     public void LoadLevelSelect()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void TutorialWallRed()
+    {
+        GameObject.FindGameObjectWithTag("WallWest").GetComponent<MeshRenderer>().material = failFloorMaterial;
+    }
+
+    public void TutorialWallNormal()
+    {
+        GameObject.FindGameObjectWithTag("WallWest").GetComponent<MeshRenderer>().material = normalFloorMaterial;
     }
 }
