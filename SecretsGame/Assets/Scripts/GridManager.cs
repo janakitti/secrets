@@ -58,14 +58,15 @@ public class GridManager : MonoBehaviour
                 Vector3 nextPos = player.transform.position;
                 nextPos.x += 1f;
                 PushRecurse(playerObject, nextPos);
+                AdvanceMovers();
                 ExecStep();
-                PrintDebug();
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
                 Vector3 nextPos = player.transform.position;
                 nextPos.x -= 1f;
                 PushRecurse(playerObject, nextPos);
+                AdvanceMovers();
                 ExecStep();
             }
             else if (Input.GetKeyDown(KeyCode.A))
@@ -73,6 +74,7 @@ public class GridManager : MonoBehaviour
                 Vector3 nextPos = player.transform.position;
                 nextPos.z += 1f;
                 PushRecurse(playerObject, nextPos);
+                AdvanceMovers();
                 ExecStep();
             }
             else if (Input.GetKeyDown(KeyCode.D))
@@ -80,6 +82,7 @@ public class GridManager : MonoBehaviour
                 Vector3 nextPos = player.transform.position;
                 nextPos.z -= 1f;
                 PushRecurse(playerObject, nextPos);
+                AdvanceMovers();
                 ExecStep();
             }
         }
@@ -177,6 +180,27 @@ public class GridManager : MonoBehaviour
             {
                 curObj.SetStep(nextPos);
                 return true;
+            }
+        }
+    }
+
+    private void AdvanceMovers()
+    {
+        Dictionary<Vector3, GridObject> tempGridTable = new Dictionary<Vector3, GridObject>(gridTable);
+        foreach (KeyValuePair<Vector3, GridObject> gridObj in tempGridTable)
+        {
+            if(gridObj.Value.GetMovable() is MoverContoller)
+            {
+                GridObject mover = gridObj.Value;
+                if (mover.GetMovable().transform.rotation == Quaternion.Euler(90f, 0f, 0f) && mover.GetPos().x == secretObject.GetPos().x)
+                {
+                    Vector3 nextPos = Vector3.Normalize(secretObject.GetPos() - mover.GetPos()) + gridObj.Value.GetPos();
+                    PushRecurse(mover, nextPos);
+                } else if (mover.GetMovable().transform.rotation == Quaternion.Euler(90f, 90f, 0f) && mover.GetPos().z == secretObject.GetPos().z)
+                {
+                    Vector3 nextPos = Vector3.Normalize(secretObject.GetPos() - mover.GetPos()) + gridObj.Value.GetPos();
+                    PushRecurse(mover, nextPos);
+                }
             }
         }
     }
