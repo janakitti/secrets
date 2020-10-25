@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
 
     public GameObject completeLevelUI;
+    public GameObject failLevelUI;
 
     private bool gameHasEnded = false;
 
@@ -16,6 +17,15 @@ public class LevelManager : MonoBehaviour
         {
             gameHasEnded = true;
             completeLevelUI.SetActive(true);
+        }
+    }
+
+    public void LevelFailed()
+    {
+        if (!gameHasEnded)
+        {
+            gameHasEnded = true;
+            failLevelUI.SetActive(true);
         }
     }
 

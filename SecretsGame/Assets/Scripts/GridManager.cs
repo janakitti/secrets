@@ -97,6 +97,13 @@ public class GridManager : MonoBehaviour
         {
             state = State.Win;
             ActOnState();
+            return;
+        }
+        if (SecretRevealed(secretObject.GetPos()))
+        {
+            state = State.Lose;
+            ActOnState();
+            return;
         }
     }
 
@@ -105,7 +112,35 @@ public class GridManager : MonoBehaviour
         if (state == State.Win)
         {
             levelManager.LevelComplete();
+        } else if (state == State.Lose)
+        {
+            levelManager.LevelFailed();
         }
+    }
+
+    private bool SecretRevealed(Vector3 secretPos)
+    {
+        Vector3 testDirection = secretPos + new Vector3(1f, 0f, 0f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        {
+            return true;
+        }
+        testDirection = secretPos + new Vector3(-1f, 0f, 0f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        {
+            return true;
+        }
+        testDirection = secretPos + new Vector3(0f, 0f, 1f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        {
+            return true;
+        }
+        testDirection = secretPos + new Vector3(1f, 0f, -1f);
+        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void PrintDebug()
