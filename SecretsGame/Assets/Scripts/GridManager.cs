@@ -148,22 +148,22 @@ public class GridManager : MonoBehaviour
     private bool SecretRevealed(Vector3 secretPos)
     {
         Vector3 testDirection = secretPos + new Vector3(1f, 0f, 0f);
-        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        if (gridTable.ContainsKey(testDirection) && (gridTable[testDirection].GetMovable() is NosyController || gridTable[testDirection].GetMovable() is MoverContoller))
         {
             return true;
         }
         testDirection = secretPos + new Vector3(-1f, 0f, 0f);
-        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        if (gridTable.ContainsKey(testDirection) && (gridTable[testDirection].GetMovable() is NosyController || gridTable[testDirection].GetMovable() is MoverContoller))
         {
             return true;
         }
         testDirection = secretPos + new Vector3(0f, 0f, 1f);
-        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        if (gridTable.ContainsKey(testDirection) && (gridTable[testDirection].GetMovable() is NosyController || gridTable[testDirection].GetMovable() is MoverContoller))
         {
             return true;
         }
         testDirection = secretPos + new Vector3(0f, 0f, -1f);
-        if (gridTable.ContainsKey(testDirection) && gridTable[testDirection].GetMovable() is NosyController)
+        if (gridTable.ContainsKey(testDirection) && (gridTable[testDirection].GetMovable() is NosyController || gridTable[testDirection].GetMovable() is MoverContoller))
         {
             return true;
         }
