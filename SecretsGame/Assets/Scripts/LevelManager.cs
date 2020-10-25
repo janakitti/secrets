@@ -61,6 +61,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void LoadTutorial()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void TutorialWallRed()
     {
         GameObject.FindGameObjectWithTag("WallWest").GetComponent<MeshRenderer>().material = failFloorMaterial;
