@@ -266,7 +266,7 @@ public class GridManager : MonoBehaviour
             {
                 curObj.SetStep(nextPos);
                 return true;
-            } else if (!isTutorial && !isWithinBoundary(nextPos))
+            } else if (!isWithinBoundary(nextPos))
             {
                 return false;
             } else if (curObj.GetMovable() is LockedController) {
