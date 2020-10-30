@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuCameraAnimation : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class MenuCameraAnimation : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
     }
 
-    void Update()
+    void LoadLevelSelect()
     {
-        
+        SceneManager.LoadScene(1);
     }
 }
