@@ -259,17 +259,17 @@ public class GridManager : MonoBehaviour
                     return false;
                 }
             }
-            if(curObj.GetMovable() is NosyController)
-            {
-                var nosyBlock = curObj.GetMovable() as NosyController;
-                if (!nosyBlock.isLocked) {
-                    curObj.SetStep(nextPos);
-                    return true;
-                } else
-                {
-                    return false;
-                }
-            }
+            //if(curObj.GetMovable() is NosyController)
+            //{
+            //    var nosyBlock = curObj.GetMovable() as NosyController;
+            //    if (!nosyBlock.isLocked) {
+            //        curObj.SetStep(nextPos);
+            //        return true;
+            //    } else
+            //    {
+            //        return false;
+            //    }
+            //}
             if (PushRecurse(gridTable[nextPos], nextNextPos))
             {
                 curObj.SetStep(nextPos);
@@ -298,19 +298,7 @@ public class GridManager : MonoBehaviour
                 {
                     return false;
                 }
-            } else if (curObj.GetMovable() is NosyController)
-            {
-                var nosyBlock = curObj.GetMovable() as NosyController;
-                if (!nosyBlock.isLocked)
-                {
-                    curObj.SetStep(nextPos);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            } else
+            }  else
             {
                 curObj.SetStep(nextPos);
                 return true;
