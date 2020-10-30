@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NosyController : MovableController
 {
-
+    public bool isLocked = false;
     void Start()
     {
         
